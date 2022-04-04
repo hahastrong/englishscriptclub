@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Oops!</title>
+</head>
+<body>
+<div class="errorPage">
+    <span class="oops">Oops!</span>
+    <img th:src="@{/MissingPage.jpg}"></img>
+    <p>There seems to be a problem with the page you requested
+        (<span th:text="${path}"></span>).</p>
+
+    <p th:text="${'Details: ' + message}"></p>
+</div>
+</body>
+</html>

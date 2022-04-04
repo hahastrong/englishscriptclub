@@ -1,0 +1,135 @@
+.main {
+
+    /*width: 844px;*/
+    margin: 0 auto;
+    position: relative;
+    min-height: 100%;
+}
+
+.header{
+    background-color: azure;
+    height: 100px;
+    position: sticky;
+    top: 0;
+    font-size: 3em;
+    padding: 0.4em 0.5em 0.3em 0.5em;
+}
+.content {
+    position: fixed;
+    width: 100%;
+    top: 100px;
+    bottom: 160px;
+    overflow: auto;
+}
+
+.float-left {
+    float: left;
+}
+.float-right {
+    float: right;
+}
+
+.audio-list {
+    list-style: none;
+    font-size: 20px;
+}
+
+.audio-item {
+    background-color: mintcream;
+    height: 8em;
+    /*border: red solid 1px;*/
+    padding-left: 20px;
+    padding-top: 30px;
+}
+.play-icon {
+    width: 5em;
+    height: 100%;
+    margin-right: 15px;
+}
+/*.icon-center {*/
+/*     margin: 2px 5px;*/
+/*}*/
+
+.bi {
+    font-size: 5em;
+    color: #8c95b0;
+}
+
+.audio-text {
+    margin-left: 2em;
+    font-size: 3em;
+}
+.audio-channel {
+    font-size: 0.8em;
+}
+
+.player {
+    background-color: #d6ddec;
+    height: 160px;
+    width: 100%;
+    position: fixed;
+    top: calc(100vh - 160px);
+}
+.player-content {
+    padding-left: 10px;
+    margin-top: 30px;
+    margin-bottom: 5px;
+    margin-left: 30px;
+    width: 75%;
+    height: 100%;
+}
+
+.play-title {
+    height: 1em;
+    font-size: 3em;
+
+}
+
+.play-button {
+    margin: 30px 50px 10px 0px;
+}
+
+.process {
+    height: 20px;
+}
+
+.timeline {
+    -webkit-appearance: none;
+    width: 100%;
+    background-color: #e5e5e5;
+    border-radius: 5px;
+    background-size: 0% 100%;
+    background-image: linear-gradient(#DE5E97, #DE5E97);
+    background-repeat: no-repeat;
+}
+
+.timeline::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 1em;
+    height: 0.5em;
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0;
+    transition: all .1s;
+    background-color: #a94672;
+}
+
+.timeline::-webkit-slider-thumb:hover {
+    background-color: #943f65;
+}
+
+.timeline:hover::-webkit-slider-thumb {
+    opacity: 1;
+}
+
+.timeline::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+}
+
+#onplaying-item {
+    background-color: #d6ddec;
+}
+

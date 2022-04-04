@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>英语文稿俱乐部</title>
+</head>
+<body>
+<div class="personal-user" >
+    <form method="post" th:object="${userForm}">
+        <input type="hidden" name="id" th:value="${user.id}"/>
+        <p>openid: <span th:text="${user.openid}"></span></p>
+        <p>phone: <input type="text"  th:text="${user.phone}" /></p>
+        <p>VIP: <input type="number"  name="vip" th:value="${user.vip}"/> </p>
+        <p>开始时间: <span th:text="${user.startTime}"></span> </p>
+        <p>结束时间: <span th:text="${user.endTime}"></span></p>
+        <p><input type="submit" value="提交" /></p>
+    </form>
+
+</div>
+<div class="lists">
+    <table>
+        <tr>
+            <th>id</th>
+            <th>phone</th>
+            <th>vip</th>
+        </tr>
+        <tr th:each="userInfo : ${users}">
+            <td><a th:text="${userInfo.id}" th:href="@{/user(id=${userInfo.id})}"></td>
+
+            <td th:text="${userInfo.phone}"></td>
+            <td th:text="${userInfo.vip}"></td>
+        </tr>
+    </table>
+</div>
+<div>
+    <a th:href="@{/user(page=${prePage})}">上一页</a>
+    <a th:href="@{/user(page=${nextPage})}">下一页</a>
+</div>
+
+</body>
+</html>

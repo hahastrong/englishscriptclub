@@ -1,0 +1,290 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>英语文稿俱乐部</title>
+<!--    <link rel="stylesheet" href="styleSheet.css">-->
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">-->
+    <style>
+        .main {
+
+            /*width: 844px;*/
+            margin: 0 auto;
+            position: relative;
+            min-height: 100%;
+        }
+
+        .header{
+            background-color: azure;
+            height: 100px;
+            width: 100%;
+            margin-left: -10px;
+            margin-top: -10px;
+            position: sticky;
+            top: 0;
+            font-size: 3em;
+            padding: 0.4em 0.5em 0.3em 0.5em;
+        }
+
+        .change-list {
+            padding-right: 15px;
+        }
+
+
+        .content {
+            position: fixed;
+            width: 100%;
+            margin-left: -10px;
+            top: 100px;
+            bottom: 260px;
+            overflow: auto;
+        }
+
+        .float-left {
+            float: left;
+        }
+        .float-right {
+            float: right;
+        }
+
+        .audio-list {
+            list-style: none;
+            font-size: 20px;
+        }
+
+        .audio-item {
+            background-color: mintcream;
+            height: 8em;
+            /*border: red solid 1px;*/
+
+            padding-left: 30px;
+            padding-top: 30px;
+        }
+        .play-icon {
+            width: 5em;
+            height: 100%;
+            margin-right: 15px;
+        }
+        /*.icon-center {*/
+        /*     margin: 2px 5px;*/
+        /*}*/
+
+        .bi {
+            font-size: 5em;
+            color: #8c95b0;
+        }
+
+        .audio-text {
+            margin-left: 2em;
+            font-size: 3em;
+        }
+        .audio-channel {
+            font-size: 0.8em;
+        }
+
+        .player {
+            background-color: #d6ddec;
+            height: 160px;
+            width: 100%;
+            margin-left: -10px;
+            position: fixed;
+            top: calc(100vh - 210px);
+            bottom: 50px;
+        }
+        .player-content {
+            padding-left: 10px;
+            margin-top: 30px;
+            margin-bottom: 5px;
+            margin-left: 30px;
+            width: 75%;
+            height: 100%;
+        }
+
+        .play-title {
+            height: 1em;
+            font-size: 3em;
+
+        }
+
+        .play-button {
+            margin: 30px 50px 10px 0;
+            height: 100px;
+            width: 100px;
+        }
+
+        .process {
+            height: 20px;
+        }
+
+        .timeline {
+            -webkit-appearance: none;
+            width: 100%;
+            background-color: #e5e5e5;
+            border-radius: 5px;
+            background-size: 0% 100%;
+            background-image: linear-gradient(#DE5E97, #DE5E97);
+            background-repeat: no-repeat;
+        }
+
+        .timeline::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 1em;
+            height: 0.5em;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0;
+            transition: all .1s;
+            background-color: #a94672;
+        }
+
+        .timeline::-webkit-slider-thumb:hover {
+            background-color: #943f65;
+        }
+
+        .timeline:hover::-webkit-slider-thumb {
+            opacity: 1;
+        }
+
+        .timeline::-webkit-slider-runnable-track {
+            -webkit-appearance: none;
+            box-shadow: none;
+            border: none;
+            background: transparent;
+        }
+
+        #onplaying-item {
+            background-color: #d6ddec;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="header">
+        <div class="back float-left">Back</div>
+        <div class="change-list float-right">Audio List</div>
+    </div>
+
+    <div class="content">
+        <div class="audio-list">
+            <div  th:each="item,iter : ${audios}" th:class="'audio-item audio-item-' + ${iter.index}" th:onclick="'changeAudio(' + ${iter.index} + ')'">
+                <div class="play-icon float-left">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"/>
+                    </svg>
+                </div>
+                <div class="audio-text">
+                    <div class="audio-title" th:text="${item.title}"></div>
+                    <div class="audio-channel">
+                        <span th:text="${item.channel}"></span> -
+                        <span th:text="${item.subChannel}"></span>
+                    </div>
+                </div>
+                <!--                <input type="hidden" value="https://s3.ap-northeast-1.amazonaws.com/storage.liveabc.com/qrcode/1ec0ccb4-95d6-4955-93d3-9897a77e8f41/kzwl0dke/%E7%AA%81%E7%A0%B4%E7%95%8C%E9%99%90%20%20%E6%8F%89%E5%90%88%E5%A5%87%E5%B9%BB%E8%88%87%E7%8F%BE%E5%AF%A6%E7%9A%84%E6%99%82%E5%B0%9A%E7%BE%8E%E5%AD%B8/Unit10-1.mp3" />-->
+                <input type="hidden" th:value="${item.url}">
+            </div>
+        </div>
+    </div>
+
+    <div class="player">
+        <div class="player-content float-left">
+            <div class="play-title">Hello World</div>
+            <div class="process">
+                <input type="range" class="timeline" max="100" value="0" />
+            </div>
+        </div>
+        <div class="float-right play-button">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"/>
+            </svg>
+        </div>
+    </div>
+    <audio class="playing-audio">
+        <source src="" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+</div>
+<script>
+    const timeline = document.querySelector(".timeline");
+    function changeTimelinePosition () {
+        const percentagePosition = (100*audio.currentTime) / audio.duration;
+        timeline.style.backgroundSize = `${percentagePosition}% 100%`;
+        timeline.value = percentagePosition;
+    }
+    let playingTitle = document.querySelector('.play-title');
+
+    const audio = document.querySelector(".playing-audio");
+    let playingIndex = 0;
+
+    audio.ontimeupdate = changeTimelinePosition;
+
+    function changeSeek () {
+        const time = (timeline.value * audio.duration) / 100;
+        audio.currentTime = time;
+    }
+    timeline.addEventListener('change', changeSeek);
+
+    const playerButton = document.querySelector('.play-button'),
+        playIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"/>
+                    </svg>`,
+        pauseIcon = `<svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-pause-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="M5 6.25a1.25 1.25 0 1 1 2.5 0v3.5a1.25 1.25 0 1 1-2.5 0v-3.5zm3.5 0a1.25 1.25 0 1 1 2.5 0v3.5a1.25 1.25 0 1 1-2.5 0v-3.5z"/>
+                    </svg>`;
+
+    function toggleAudio () {
+        if (audio.paused) {
+            audio.play();
+            playerButton.innerHTML = pauseIcon;
+        } else {
+            audio.pause();
+            playerButton.innerHTML = playIcon;
+        }
+    }
+
+    playerButton.addEventListener('click', toggleAudio);
+
+    function audioEnded() {
+        playerButton.innerHTML = playIcon;
+    }
+
+    audio.onended = audioEnded;
+
+    // change the audio list
+    function changeAudio(idx) {
+        audio.pause();
+        audio.currentTime = 0;
+        // change playing icon to play
+        let audioItemPlaying = document.querySelector(".audio-item-" + playingIndex);
+        audioItemPlaying.querySelector('.play-icon').innerHTML = playIcon;
+        audioItemPlaying.removeAttribute('id');
+
+        // change the next play audio icon to pause
+        let audioItemNextPlay = document.querySelector(".audio-item-" + idx);
+        audioItemNextPlay.querySelector('.play-icon').innerHTML = pauseIcon;
+        audioItemNextPlay.setAttribute('id', 'onplaying-item');
+
+        // get the next play audio
+        let playAudioUrl = audioItemNextPlay.querySelector('input').value;
+        audio.setAttribute("src", playAudioUrl);
+
+        // change the title
+        playingTitle.innerHTML = audioItemNextPlay.querySelector('.audio-text').querySelector('.audio-title').innerHTML;
+
+        audio.play();
+
+        // change the playing icon
+        playerButton.innerHTML = pauseIcon;
+
+        // save the playing index
+        playingIndex = idx;
+    }
+
+</script>
+</body>
+</html>

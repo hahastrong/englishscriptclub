@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AudioList</title>
+  <link rel="stylesheet" type="text/css" href="audio_list.css">
+  <style>
+    .header {
+      width: 100%;
+      height: 40px;
+      text-align: center;
+      line-height: 40px;
+      border-radius: 10px;
+      background-color: #20AA9A;
+      color: white;
+    }
+
+    .daily-sentence {
+      width: 100%;
+      padding-top: 15px;
+      border-bottom: brown solid 5px;
+    }
+    .daily-sentence img {
+      width: 100%;
+      padding-top: 10px;
+    }
+
+    .audio-list {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      text-align: center;
+    }
+
+    .item {
+      margin-left: 10px;
+      margin-right: 10px;
+      padding-bottom: 20px;
+      padding-top: 20px;
+      width: 90%;
+      background-color: #7FCDF7;
+      border-radius: 20px;
+    }
+
+    .item .date {
+      padding-top: 10px;
+    }
+  </style>
+</head>
+<body>
+<div class="header">
+  Audio List
+</div>
+
+<div class="daily-sentence">
+  <div class="content english">sentence</div>
+  <div class="content chinese"></div>
+  <img class="picture" src=""  alt="daily sentence img"/>
+</div>
+
+<div class="audio-list">
+  <div class="item" th:each="item: ${lists}">
+    <a th:href="'/englishscriptclub/audio?date=' + ${item.date} + '&channel=' + ${item.channel} + '&subChannel=' + ${item.subChannel}"></a>
+    <div class="channel" th:text="${item.channelCN}"></div>
+    <div class="subChannel" th:text="${item.subChannel}">SC</div>
+    <div class="date" th:text="${item.date}">视频讲解</div>
+  </div>
+
+
+</div>
+<script type="text/javascript">
+  const dailySentence = document.querySelector(".daily-sentence");
+  fetch("https://hahastrong.com/studioclassroom/dailysentence", {
+    method: "GET",
+    mode: 'cors',
+  }).then(respone => respone.json())
+          .then(res => {
+            console.log(res);
+            dailySentence.querySelector(".english").innerHTML = res['content'];
+            dailySentence.querySelector(".chinese").innerHTML = res['note'];
+            dailySentence.querySelector("img").src = res['picture'];
+          })
+
+  const items = document.querySelectorAll(".item");
+
+  for (let item of items) {
+    item.addEventListener("click", logHref);
+  }
+
+  function logHref(e) {
+    let hrefLink = e.target.parentElement.querySelector("a").href;
+    console.log(hrefLink);
+    window.location.href = hrefLink;
+  }
+</script>
+</body>
+</html>
